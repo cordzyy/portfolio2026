@@ -3,7 +3,7 @@
 import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { ArrowRight, Github, Linkedin, Facebook, Instagram } from "lucide-react";
+import { ArrowRight, Github, Linkedin, Facebook, Instagram, Download } from "lucide-react";
 import { heroData } from "@/data/mock";
 import Typewriter from "@/components/ui/Typewriter";
 import Magnetic from "@/components/ui/Magnetic";
@@ -114,6 +114,17 @@ export default function Hero() {
                   <ArrowRight className="w-4 h-4" />
                   {heroData.cta.secondary.label}
                 </Link>
+              </Magnetic>
+              <Magnetic strength={0.3}>
+                <a
+                  href="/resume.pdf"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group flex items-center gap-2 px-6 py-3 border border-zinc-800 bg-zinc-800/50 text-zinc-400 rounded-full font-medium text-sm hover:border-violet-500/50 hover:bg-violet-500/10 hover:text-violet-300 transition-all duration-200"
+                >
+                  <Download className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform duration-200" />
+                  Resume
+                </a>
               </Magnetic>
             </motion.div>
 
