@@ -1,8 +1,14 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Zap } from "lucide-react";
 import { navLinks } from "@/data/mock";
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname?.includes("-demo")) return null;
+
   return (
     <footer className="border-t border-zinc-900 py-10 px-6">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">

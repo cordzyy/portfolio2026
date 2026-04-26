@@ -64,24 +64,32 @@ export default function CustomCursor() {
     const handleMouseEnter = () => setIsVisible(true);
 
     const detectContext = (e: MouseEvent) => {
-      const el = e.target as HTMLElement;
-      if (!el) return;
-      const tag = el.tagName.toLowerCase();
-      const classes = el.className || "";
-      const sectionId = el.closest("section")?.id || "";
+      try {
+        const el = e.target as HTMLElement | null;
+        if (!el || !el.closest || typeof el.closest !== "function") return;
+        
+        const tag = el.tagName ? String(el.tagName).toLowerCase() : "";
+        const classes = typeof el.className === "string" ? el.className : (el.getAttribute?.("class") || "");
+        
+        const section = el.closest("section");
+        const sectionId = section ? section.id : "";
 
-      if (tag === "button" || el.closest("button")) {
-        setCursorType("button");
-      } else if (tag === "a" || el.closest("a")) {
-        if (sectionId === "contact") setCursorType("contact");
-        else setCursorType("link");
-      } else if (sectionId === "projects" || classes.includes("project")) {
-        setCursorType("project");
-      } else if (sectionId === "skills" || sectionId === "experience") {
-        setCursorType("design");
-      } else if (sectionId === "contact") {
-        setCursorType("contact");
-      } else {
+        if (tag === "button" || el.closest("button")) {
+          setCursorType("button");
+        } else if (tag === "a" || el.closest("a")) {
+          if (sectionId === "contact") setCursorType("contact");
+          else setCursorType("link");
+        } else if (sectionId === "projects" || classes.includes("project")) {
+          setCursorType("project");
+        } else if (sectionId === "skills" || sectionId === "experience") {
+          setCursorType("design");
+        } else if (sectionId === "contact") {
+          setCursorType("contact");
+        } else {
+          setCursorType("default");
+        }
+      } catch (err) {
+        // Silently catch any rendering or target errors
         setCursorType("default");
       }
     };

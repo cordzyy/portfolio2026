@@ -41,7 +41,7 @@ export const projectsData = [
     image:
       "https://images.unsplash.com/photo-1499951360447-b19be8fe80f5?w=800&h=500&fit=crop",
     tags: ["Next.js", "TypeScript", "React", "Tailwind CSS", "REST API"],
-    liveUrl: "#",
+    liveUrl: "/cms-demo/login",
     githubUrl: "#",
     featured: true,
     year: "2026",
@@ -55,7 +55,7 @@ export const projectsData = [
     image:
       "https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=800&h=500&fit=crop",
     tags: ["Angular", "TypeScript", "HTML5", "CSS3", "Responsive Design"],
-    liveUrl: "#",
+    liveUrl: "/lms-demo",
     githubUrl: "#",
     featured: true,
     year: "2025",
