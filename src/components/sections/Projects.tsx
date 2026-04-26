@@ -1,9 +1,10 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useState } from "react";
+import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ExternalLink, Github, ArrowRight } from "lucide-react";
+import { ExternalLink, Github, ArrowRight, ShieldAlert, X } from "lucide-react";
 import { projectsData } from "@/data/mock";
 import { Badge } from "@/components/ui/badge";
 
@@ -36,7 +37,14 @@ interface Project {
   category: string;
 }
 
-function ProjectCard({ project }: { project: Project }) {
+interface ProjectProps {
+  project: Project;
+  onConfidentialClick: (e: React.MouseEvent, project: Project) => void;
+}
+
+function ProjectCard({ project, onConfidentialClick }: ProjectProps) {
+  const isConfidential = project.category.includes("Confidential");
+
   return (
     <motion.div
       variants={cardVariants}
@@ -77,24 +85,27 @@ function ProjectCard({ project }: { project: Project }) {
           whileHover={{ opacity: 1 }}
           className="absolute inset-0 flex items-center justify-center gap-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300"
         >
-          <Link
-            href={project.liveUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-zinc-900 text-xs font-semibold hover:bg-zinc-100 transition-colors shadow-lg"
+          {project.liveUrl !== "#" && (
+            <Link
+              href={project.liveUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-white text-zinc-900 text-xs font-semibold hover:bg-zinc-100 transition-colors shadow-lg"
+            >
+              <ExternalLink className="w-3 h-3" />
+              Live
+            </Link>
+          )}
+          <a
+            href={isConfidential ? "#" : project.githubUrl}
+            onClick={(e) => isConfidential && onConfidentialClick(e, project)}
+            target={isConfidential ? undefined : "_blank"}
+            rel={isConfidential ? undefined : "noopener noreferrer"}
+            className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-zinc-800/90 backdrop-blur-sm text-white text-xs font-semibold hover:bg-zinc-700 transition-colors border border-zinc-700 shadow-lg cursor-pointer"
           >
-            <ExternalLink className="w-3 h-3" />
-            Live
-          </Link>
-          <Link
-            href={project.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-zinc-800/90 backdrop-blur-sm text-white text-xs font-semibold hover:bg-zinc-700 transition-colors border border-zinc-700 shadow-lg"
-          >
-            <Github className="w-3 h-3" />
-            Code
-          </Link>
+            {isConfidential ? <ShieldAlert className="w-3 h-3" /> : <Github className="w-3 h-3" />}
+            {isConfidential ? "Notice" : "Code"}
+          </a>
         </motion.div>
       </div>
 
@@ -132,8 +143,9 @@ function ProjectCard({ project }: { project: Project }) {
   );
 }
 
-function FeaturedProjectCard({ project, index }: { project: Project; index: number }) {
+function FeaturedProjectCard({ project, index, onConfidentialClick }: ProjectProps & { index: number }) {
   const isEven = index % 2 === 0;
+  const isConfidential = project.category.includes("Confidential");
 
   return (
     <motion.div
@@ -166,8 +178,9 @@ function FeaturedProjectCard({ project, index }: { project: Project; index: numb
                 Featured Project
               </span>
               <span className="text-sm font-medium text-zinc-500 tracking-tighter">/ {project.year}</span>
-              {project.category.includes("Confidential") && (
-                <span className="px-2 py-0.5 rounded border border-zinc-700 bg-zinc-800/50 text-zinc-500 text-[10px] font-medium uppercase">
+              {isConfidential && (
+                <span className="px-2 py-0.5 rounded border border-zinc-700 bg-zinc-800/50 text-zinc-500 text-[10px] font-medium uppercase flex items-center gap-1">
+                  <ShieldAlert className="w-3 h-3" />
                   Confidential
                 </span>
               )}
@@ -193,25 +206,28 @@ function FeaturedProjectCard({ project, index }: { project: Project; index: numb
             </div>
           </div>
 
-          <div className="flex items-center gap-4 mt-8">
-            <Link
-              href={project.liveUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-zinc-900 text-sm font-bold hover:bg-zinc-100 transition-all shadow-xl shadow-white/5"
+          <div className="flex flex-wrap items-center gap-4 mt-8">
+            {project.liveUrl !== "#" && (
+              <Link
+                href={project.liveUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-6 py-2.5 rounded-full bg-white text-zinc-900 text-sm font-bold hover:bg-zinc-100 transition-all shadow-xl shadow-white/5"
+              >
+                <ExternalLink className="w-4 h-4" />
+                Live Demo
+              </Link>
+            )}
+            <a
+              href={isConfidential ? "#" : project.githubUrl}
+              onClick={(e) => isConfidential && onConfidentialClick(e, project)}
+              target={isConfidential ? undefined : "_blank"}
+              rel={isConfidential ? undefined : "noopener noreferrer"}
+              className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-zinc-700 text-zinc-300 text-sm font-bold hover:border-zinc-500 hover:text-white transition-all duration-200 cursor-pointer"
             >
-              <ExternalLink className="w-4 h-4" />
-              Live Demo
-            </Link>
-            <Link
-              href={project.githubUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center gap-2 px-6 py-2.5 rounded-full border border-zinc-700 text-zinc-300 text-sm font-bold hover:border-zinc-500 hover:text-white transition-all duration-200"
-            >
-              <Github className="w-4 h-4" />
-              Source Code
-            </Link>
+              {isConfidential ? <ShieldAlert className="w-4 h-4" /> : <Github className="w-4 h-4" />}
+              {isConfidential ? "Confidential Notice" : "Source Code"}
+            </a>
           </div>
         </div>
       </div>
@@ -220,8 +236,14 @@ function FeaturedProjectCard({ project, index }: { project: Project; index: numb
 }
 
 export default function Projects() {
+  const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const featured = projectsData.filter((p) => p.featured);
   const rest = projectsData.filter((p) => !p.featured);
+
+  const handleConfidentialClick = (e: React.MouseEvent, project: Project) => {
+    e.preventDefault();
+    setSelectedProject(project);
+  };
 
   return (
     <section id="projects" className="relative py-28 px-6">
@@ -263,7 +285,12 @@ export default function Projects() {
           className="space-y-4 mb-4"
         >
           {featured.map((project, index) => (
-            <FeaturedProjectCard key={project.id} project={project} index={index} />
+            <FeaturedProjectCard 
+              key={project.id} 
+              project={project} 
+              index={index} 
+              onConfidentialClick={handleConfidentialClick}
+            />
           ))}
         </motion.div>
 
@@ -276,10 +303,71 @@ export default function Projects() {
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
         >
           {rest.map((project) => (
-            <ProjectCard key={project.id} project={project} />
+            <ProjectCard 
+              key={project.id} 
+              project={project} 
+              onConfidentialClick={handleConfidentialClick}
+            />
           ))}
         </motion.div>
       </div>
+
+      {/* Confidential Modal */}
+      <AnimatePresence>
+        {selectedProject && (
+          <div className="fixed inset-0 z-50 flex items-center justify-center px-4 sm:px-0">
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+              onClick={() => setSelectedProject(null)}
+            />
+            <motion.div
+              initial={{ opacity: 0, scale: 0.95, y: 20 }}
+              animate={{ opacity: 1, scale: 1, y: 0 }}
+              exit={{ opacity: 0, scale: 0.95, y: 20 }}
+              className="relative w-full max-w-[calc(100vw-2rem)] sm:max-w-md bg-zinc-900 border border-zinc-800 rounded-2xl shadow-2xl p-6 overflow-hidden mx-auto"
+            >
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-amber-500 to-orange-500" />
+              <button 
+                onClick={() => setSelectedProject(null)}
+                className="absolute top-4 right-4 text-zinc-500 hover:text-zinc-300 transition-colors"
+              >
+                <X className="w-5 h-5" />
+              </button>
+              
+              <div className="flex items-center gap-4 mb-4">
+                <div className="p-3 bg-amber-500/10 text-amber-500 rounded-full">
+                  <ShieldAlert className="w-6 h-6" />
+                </div>
+                <h3 className="text-xl font-bold text-white">Confidential Project</h3>
+              </div>
+              
+              <div className="space-y-4 text-zinc-300 text-sm leading-relaxed">
+                <p>
+                  The project <strong>{selectedProject.title}</strong> is an enterprise-grade application built under a non-disclosure agreement (NDA) or client contract.
+                </p>
+                <p>
+                  Because of these strict confidentiality terms, the original source code and proprietary assets cannot be shared publicly.
+                </p>
+                <p>
+                  However, I have built a safe, sanitized <strong className="text-white">demo version</strong> representing the UI/UX architecture and front-end flow, which you can explore by clicking the &quot;Live Demo&quot; button.
+                </p>
+              </div>
+              
+              <div className="mt-8 flex justify-end">
+                <button 
+                  onClick={() => setSelectedProject(null)}
+                  className="px-5 py-2.5 bg-zinc-800 hover:bg-zinc-700 text-white text-sm font-semibold rounded-lg transition-colors border border-zinc-700"
+                >
+                  Understood
+                </button>
+              </div>
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
     </section>
   );
 }

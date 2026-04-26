@@ -69,7 +69,7 @@ export const projectsData = [
     image:
       "https://images.unsplash.com/photo-1551836022-4c4c79ecde51?w=800&h=500&fit=crop",
     tags: ["Angular", "TypeScript", "HTML5", "CSS3", "Real-time"],
-    liveUrl: "#",
+    liveUrl: "/qms-demo/login",
     githubUrl: "#",
     featured: false,
     year: "2024",

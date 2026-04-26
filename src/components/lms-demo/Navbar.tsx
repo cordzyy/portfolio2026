@@ -1,12 +1,14 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { BookOpen, Search, ShoppingCart, Bell, Menu } from "lucide-react";
+import { BookOpen, Search, ShoppingCart, Bell, Menu, X } from "lucide-react";
 import { lmsUser } from "@/lib/lms-mock-data";
 
 export default function LmsNavbar() {
   const pathname = usePathname();
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950">
@@ -61,11 +63,43 @@ export default function LmsNavbar() {
           <Link href="/lms-demo/profile" className="hidden sm:block ml-2 border-2 border-transparent hover:border-violet-500 rounded-full transition-all">
             <img src={lmsUser.avatar} alt="Profile" className="h-8 w-8 rounded-full" />
           </Link>
-          <button className="md:hidden text-zinc-600 dark:text-zinc-400 ml-2">
-            <Menu className="h-6 w-6" />
+          <button 
+            className="md:hidden text-zinc-600 dark:text-zinc-400 ml-2"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {mobileMenuOpen && (
+        <div className="md:hidden border-t border-zinc-200 dark:border-zinc-800 bg-white dark:bg-zinc-950 p-4 space-y-4">
+          <div className="flex flex-col space-y-3">
+            <Link 
+              href="/lms-demo/courses" 
+              onClick={() => setMobileMenuOpen(false)}
+              className={`text-sm font-medium ${pathname === '/lms-demo/courses' ? 'text-violet-600' : 'text-zinc-600 dark:text-zinc-300'}`}
+            >
+              Catalog
+            </Link>
+            <Link 
+              href="/lms-demo/dashboard" 
+              onClick={() => setMobileMenuOpen(false)}
+              className={`text-sm font-medium ${pathname === '/lms-demo/dashboard' ? 'text-violet-600' : 'text-zinc-600 dark:text-zinc-300'}`}
+            >
+              My Learning
+            </Link>
+            <Link 
+              href="/lms-demo/profile" 
+              onClick={() => setMobileMenuOpen(false)}
+              className="text-sm font-medium text-zinc-600 dark:text-zinc-300"
+            >
+              Profile
+            </Link>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

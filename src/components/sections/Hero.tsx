@@ -155,13 +155,13 @@ export default function Hero() {
             initial={{ opacity: 0, scale: 0.85, x: 40 }}
             animate={{ opacity: 1, scale: 1, x: 0 }}
             transition={{ duration: 0.9, delay: 0.4, ease: [0.22, 1, 0.36, 1] }}
-            className="relative hidden lg:flex items-center justify-center"
+            className="relative flex items-center justify-center mt-10 lg:mt-0"
           >
             {/* Glow ring */}
             <div className="absolute inset-0 rounded-full bg-gradient-to-br from-violet-500/20 to-indigo-500/10 blur-3xl scale-110" />
 
             {/* Outer border ring */}
-            <div className="relative w-80 h-80">
+            <div className="relative w-64 h-64 sm:w-72 sm:h-72 lg:w-80 lg:h-80">
               <div className="absolute inset-0 rounded-full border border-zinc-700/50 scale-110" />
               <div className="absolute inset-0 rounded-full border border-violet-500/20 scale-125" />
 
