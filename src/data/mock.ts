@@ -4,7 +4,7 @@ export const heroData = {
   title: "Front-End Developer",
   subtitle: "& UI/UX Designer",
   description:
-    "I craft high-performance web interfaces and visually driven digital experiences — from pixel-perfect WordPress sites to modern Angular apps. Currently building at Quanby Solutions Inc.",
+    "I craft high-performance web interfaces and visually driven digital experiences — from pixel-perfect WordPress sites to modern React (NextJs) apps. Currently building at Quanby Solutions Inc.",
   cta: {
     primary: { label: "View My Work", href: "#projects" },
     secondary: { label: "Get in Touch", href: "#contact" },
@@ -113,6 +113,7 @@ export const skillsData = {
       skills: [
         { name: "HTML5 / CSS3", level: 95 },
         { name: "JavaScript / TypeScript", level: 85 },
+        { name: "React (NextJs)", level: 85 },
         { name: "Angular", level: 80 },
         { name: "Tailwind CSS", level: 88 },
         { name: "PHP", level: 65 },
@@ -160,7 +161,7 @@ export const experienceData = [
       "Developed and executed QA test plans, test cases, and automated test scripts",
     ],
     logo: "https://ui-avatars.com/api/?name=Quanby&size=100&background=6d28d9&color=fff&bold=true",
-    techStack: ["Angular", "TypeScript", "HTML5", "CSS3", "Figma"],
+    techStack: ["React", "Next.js", "Angular", "TypeScript", "PostgreSQL", "Express", "Drizzle", "Postman", "HTML5", "CSS3", "Figma"],
   },
   {
     id: "exp-2",

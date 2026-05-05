@@ -194,8 +194,8 @@ export default function Hero() {
                 transition={{ duration: 3.5, repeat: Infinity, ease: "easeInOut" }}
                 className="absolute -top-4 -right-4 bg-[#0f0f0f] border border-zinc-700 rounded-2xl px-4 py-2.5 shadow-xl"
               >
-                <p className="text-xs text-zinc-500 mb-0.5">Currently at</p>
-                <p className="text-sm font-semibold text-white">Quanby Solutions</p>
+                <p className="text-xs text-zinc-500 mb-0.5">Specialized in</p>
+                <p className="text-sm font-semibold text-white">React & Next.js</p>
               </motion.div>
 
               {/* Floating badge – bottom left */}
