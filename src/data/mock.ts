@@ -32,6 +32,13 @@ export const navLinks = [
   { label: "Contact", href: "#contact" },
 ];
 
+// Groupings used to organize the Projects section into stacks/categories
+export const projectStacks = [
+  "Angular Projects",
+  "React + TypeScript",
+  "WordPress Projects",
+] as const;
+
 export const projectsData = [
   {
     id: "proj-2",
@@ -46,6 +53,7 @@ export const projectsData = [
     featured: true,
     year: "2026",
     category: "Enterprise · Confidential",
+    stack: "React + TypeScript",
   },
   {
     id: "proj-1",
@@ -60,6 +68,7 @@ export const projectsData = [
     featured: true,
     year: "2025",
     category: "Enterprise · Confidential",
+    stack: "Angular Projects",
   },
   {
     id: "proj-3",
@@ -74,6 +83,7 @@ export const projectsData = [
     featured: false,
     year: "2024",
     category: "Enterprise · Confidential",
+    stack: "Angular Projects",
   },
   {
     id: "proj-4",
@@ -88,6 +98,7 @@ export const projectsData = [
     featured: false,
     year: "2024",
     category: "E-Commerce",
+    stack: "WordPress Projects",
   },
   {
     id: "proj-5",
@@ -102,6 +113,48 @@ export const projectsData = [
     featured: false,
     year: "2024",
     category: "Enterprise · Confidential",
+    stack: "WordPress Projects",
+  },
+  {
+    id: "proj-6",
+    title: "Lemon Grove – Small-Batch Citrus E-Commerce",
+    description:
+      "A concept WooCommerce store exploring a warmer, editorial take on e-commerce — candles, soaps, teas, oils, and lemonade presented through a minimalist, sculpture-and-citrus art direction. Built out the shop grid, slide-out cart drawer, and full checkout flow on a custom WordPress theme. Currently running in a local WP Engine (LocalWP) environment ahead of staging deployment.",
+    image: "/projects/lemon-grove/home.png",
+    screenshots: [
+      "/projects/lemon-grove/home.png",
+      "/projects/lemon-grove/home-fold.png",
+      "/projects/lemon-grove/shop.png",
+      "/projects/lemon-grove/checkout.png",
+    ],
+    tags: ["WordPress", "WooCommerce", "Custom Theme", "UI/UX", "LocalWP"],
+    liveUrl: "#",
+    githubUrl: "#",
+    featured: false,
+    year: "2026",
+    category: "E-Commerce",
+    stack: "WordPress Projects",
+    localEnv: "LocalWP",
+  },
+  {
+    id: "proj-7",
+    title: "ACF News – Filipino News Portal Theme",
+    description:
+      "A custom WordPress news theme built around Advanced Custom Fields — breaking-news banners, category/region-tagged article cards, an author-driven newsroom directory, and a filterable articles archive. Contact form wired through Fluent Forms. Currently running in a local WP Engine (LocalWP) environment ahead of staging deployment.",
+    image: "/projects/acf-news/home.png",
+    screenshots: [
+      "/projects/acf-news/home.png",
+      "/projects/acf-news/news.png",
+      "/projects/acf-news/contact.png",
+    ],
+    tags: ["WordPress", "ACF", "Custom Theme", "Fluent Forms", "LocalWP"],
+    liveUrl: "#",
+    githubUrl: "#",
+    featured: false,
+    year: "2026",
+    category: "News / Publishing",
+    stack: "WordPress Projects",
+    localEnv: "LocalWP",
   },
 ];
 
@@ -117,6 +170,7 @@ export const skillsData = {
         { name: "Angular", level: 80 },
         { name: "Tailwind CSS", level: 88 },
         { name: "PHP", level: 65 },
+        { name: "Git / GitHub", level: 85 },
       ],
     },
     {
@@ -125,6 +179,8 @@ export const skillsData = {
       skills: [
         { name: "Elementor (Expert)", level: 97 },
         { name: "WooCommerce", level: 90 },
+        { name: "ACF (Advanced Custom Fields)", level: 80 },
+        { name: "LocalWP / Local Dev Environments", level: 85 },
         { name: "WP Engine", level: 85 },
         { name: "Yoast / RankMath SEO", level: 88 },
         { name: "Google Analytics (GA4)", level: 80 },
